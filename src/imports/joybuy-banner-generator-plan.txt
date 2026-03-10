@@ -1,0 +1,244 @@
+================================================================================
+JOYBUY BANNER GENERATOR — FIGMA MAKE IMPLEMENTATION PLAN
+================================================================================
+Version: 1.0
+Date: March 2026
+Purpose: Enable marketing team to create consistent, on-brand banner assets
+
+================================================================================
+1. OVERVIEW
+================================================================================
+
+Goal: Build a Figma Make tool that allows marketing to:
+- Upload a scene image
+- Position/scale the image within safe areas
+- Add title, subtitle, and button text (with character limits)
+- Export banners at multiple sizes from a single image
+- Maintain brand consistency with locked gradients and typography
+
+================================================================================
+2. BANNER SPECIFICATIONS
+================================================================================
+
++----------------------+---------------+-------------+------------------+
+| Banner Type          | Dimensions    | Title Font  | Title Max Chars  |
++----------------------+---------------+-------------+------------------+
+| APP M Banner         | 1053 × 636px  | 72–84px     | 28               |
+| PC HP Large          | 2688 × 720px  | 72–88px     | 45               |
+| APP HP / Landing     | 1125 × 720px  | 72–84px     | 32               |
+| PC Small Banner      | 2528 × 560px  | 72–88px     | 40               |
+| App Mini HP          | 1125 × 720px  | 72–84px     | 32               |
+| Desktop Mini HP      | 2688 × 720px  | 72–88px     | 45               |
++----------------------+---------------+-------------+------------------+
+
+SHARED RULES (ALL FORMATS):
+- Font: Barlow (fixed, cannot be changed)
+- Text must NOT wrap (single line only)
+- Gradient overlay: Fixed per template, hue adjustable only
+- Button: Fixed size and colour
+- Images: Scene-based only, no composites or product collages
+
+SAFE AREAS & BLOCKED ZONES:
+
+PC HP Large / Desktop Mini HP:
+- Left blocked area: 300px
+- Right blocked area: 315px
+- Top blocked area: 90px
+- Gradient zone: 240px from bottom
+
+APP HP / Landing / App Mini HP:
+- Top blocked area: 45px
+- Gradient zone: 240px from bottom
+
+APP M Banner:
+- Gradient zone: 180px from bottom
+
+PC Small Banner:
+- Gradient zone: 160px from bottom
+
+================================================================================
+3. USER CONTROLS (FIGMA MAKE INPUTS)
+================================================================================
+
+CONTROL 1: Banner Format Selector
+- Type: Multi-select dropdown
+- Options: All 6 banner types
+- Behaviour: User selects which formats to export
+
+CONTROL 2: Image Upload
+- Type: Image fill input
+- Constraints: Minimum recommended resolution based on largest selected format
+- Validation: Warn if resolution too low for selected sizes
+
+CONTROL 3: Image Position X
+- Type: Slider (0–100%)
+- Default: 50%
+- Purpose: Horizontal positioning of background image
+
+CONTROL 4: Image Position Y
+- Type: Slider (0–100%)
+- Default: 50%
+- Purpose: Vertical positioning of background image
+
+CONTROL 5: Image Scale
+- Type: Slider (100–200%)
+- Default: 100%
+- Purpose: Zoom level of background image
+
+CONTROL 6: Title Text
+- Type: Text input
+- Constraints: Character limit enforced per format (see table above)
+- Font: Barlow Bold, 72–84/88px (auto-fitted)
+- Validation: Block input beyond character limit
+
+CONTROL 7: Subtitle Text
+- Type: Text input
+- Constraints: Max 55–80 chars depending on format
+- Font: Barlow Regular, 50px
+- Lines: 1–2 maximum
+
+CONTROL 8: Button Text
+- Type: Text input
+- Default: "Shop now"
+- Constraints: Max 20 characters
+- Style: Fixed (white background, black text, fixed size)
+
+CONTROL 9: Safe Area Overlay Toggle
+- Type: Boolean toggle
+- Default: ON
+- Purpose: Show/hide visual guides for safe areas, blocked zones, gradient
+
+================================================================================
+4. LAYER STRUCTURE (FIGMA COMPONENT)
+================================================================================
+
+Each banner component should have this layer hierarchy:
+
+📁 Banner Frame (e.g., "APP-M-Banner")
+├── 🖼️ Background Image (image fill, user-controlled position/scale)
+├── 🟥 Gradient Overlay (locked layer, hue-adjustable via colour algorithm)
+├── 📝 Text Container (positioned in safe area)
+│   ├── Title (Barlow Bold)
+│   ├── Subtitle (Barlow Regular)
+│   └── Button (fixed styling)
+└── 🔲 Safe Area Guides (non-exportable helper layer)
+    ├── Content Safe Area (green dashed)
+    ├── Gradient Zone (yellow dashed)
+    └── Blocked Areas (red solid, PC formats only)
+
+================================================================================
+5. GRADIENT COLOUR ALGORITHM
+================================================================================
+
+The gradient overlay colour should be derived from the uploaded image.
+
+PLACEHOLDER ALGORITHM (to be replaced):
+1. Sample dominant colour from bottom third of image
+2. Extract HSL values
+3. Lock Saturation at original value
+4. Lock Lightness at original value
+5. Allow Hue adjustment only (±30° range)
+
+GRADIENT SPECIFICATION:
+- Direction: Bottom to top
+- Start: hsla(H, S%, L%, 0.95) at bottom edge
+- End: hsla(H, S%, L%, 0) at gradient zone boundary
+
+================================================================================
+6. EXPORT BEHAVIOUR
+================================================================================
+
+SINGLE EXPORT:
+- User clicks "Export" on individual preview
+- Downloads PNG at exact pixel dimensions
+- Filename: {campaign-name}_{format}_{YYYY-MM-DD}.png
+
+MULTI-EXPORT:
+- User clicks "Export Selected"
+- Downloads ZIP containing all selected formats
+- Each file named per convention above
+
+EXPORT QUALITY:
+- Format: PNG
+- Colour space: sRGB
+- Scale: 1x (native resolution)
+
+================================================================================
+7. VALIDATION RULES
+================================================================================
+
+IMAGE VALIDATION:
+- ✓ Scene images only
+- ✓ Premium quality, lifestyle-oriented
+- ✓ SKU matches actual product 100%
+- ✗ No composite or product-collage images
+- ✗ No promotional text, prices, or discounts in source image
+- ✗ No obvious AI artifacts
+
+TEXT VALIDATION:
+- Character limits enforced (input blocked beyond limit)
+- Single line only (no line breaks permitted)
+- Font and colour cannot be modified
+
+SAFE AREA VALIDATION:
+- Visual overlay shows content placement guidance
+- Important product/subject matter should be within green safe area
+- No critical content in gradient zone or blocked areas
+
+================================================================================
+8. IMPLEMENTATION PHASES
+================================================================================
+
+PHASE 1: FIGMA SETUP (Week 1)
+- Create master Figma file with all 6 banner frames
+- Set up component variants for each size
+- Configure text layers with proper constraints
+- Build gradient overlays as separate locked layers
+- Create non-exportable safe area guide layers
+
+PHASE 2: FIGMA MAKE CONFIGURATION (Week 1–2)
+- Connect image fill to upload input
+- Map position/scale sliders to image transform
+- Wire text inputs to text layers with character limits
+- Configure gradient hue variable
+- Set up multi-format export logic
+
+PHASE 3: COLOUR ALGORITHM INTEGRATION (Week 2)
+- Implement dominant colour extraction
+- Connect to gradient overlay hue
+- Test across variety of image types
+
+PHASE 4: TESTING & REFINEMENT (Week 2–3)
+- Test with marketing team
+- Gather feedback on workflow
+- Refine character limits if needed
+- Optimise export quality
+
+PHASE 5: DOCUMENTATION & HANDOFF (Week 3)
+- Create user guide for marketing team
+- Document image quality requirements
+- Set up template library in Figma
+
+================================================================================
+9. SUCCESS CRITERIA
+================================================================================
+
+- Marketing can create compliant banners without designer involvement
+- All exports meet brand guidelines automatically
+- Character limits prevent text wrapping issues
+- Safe area guidance prevents content placement errors
+- Multi-export workflow saves time for campaign launches
+
+================================================================================
+10. FUTURE ENHANCEMENTS
+================================================================================
+
+- Batch processing for multiple campaigns
+- Template library with pre-set text/image combinations
+- Integration with asset management system
+- Automated image quality scoring
+- A/B variant generation
+
+================================================================================
+END OF PLAN
+================================================================================

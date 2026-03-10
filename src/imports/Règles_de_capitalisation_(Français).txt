@@ -1,0 +1,90 @@
+Règles de capitalisation (Français)
+Ce document définit les règles de capitalisation à appliquer dans l’ensemble de
+l’expérience produit. Elles s’appliquent à tous les textes visibles par l’utilisateur, quel
+que soit leur point de création ou de gestion : interface produit, libellés de configuration
+backend exposés, noms de catégories, titres marketing dans OPC, messages système,
+etc.
+L’objectif est d’assurer une expérience cohérente, lisible et naturelle en français, tout
+en garantissant que toutes les équipes appliquent les mêmes règles lors de la création,
+de l’évolution ou de la maintenance du contenu.
+1. Règle par défaut : la casse de phrase (sentence case)
+En français, la casse de phrase est la norme pour la majorité des textes UI.
+Seule la première lettre du premier mot est en majuscule.
+Tous les autres mots restent en minuscules, sauf si les règles standard du français
+exigent une majuscule.
+Cette règle s’applique notamment à :
+• Titres de pages
+• Libellés de navigation
+• Boutons et CTA
+• Libellés de formulaires et textes d’aide
+• Messages système et notifications
+• Libellés backend exposés aux utilisateurs
+L’usage de la casse de phrase améliore la lisibilité et s’adapte mieux aux interfaces
+riches en contenu.
+2. Règles standard de capitalisation en français
+Les règles typographiques françaises doivent toujours être respectées. On utilise une
+majuscule uniquement lorsque la grammaire ou le sens l’exige :
+• Sigles et acronymes (ex. : FAQ, TVA)
+• Noms propres et noms de personnes
+• Titres et formes d’adresse (ex. : Madame Dupont)
+• Noms géographiques et lieux (ex. : Paris, Europe)
+
+• Noms de pays et nationalités (ex. : France, Français. Nationalités et langues prennent
+une minuscule lorsqu’il s’agit d’adjectifs ou de noms de langue : français,
+anglais)
+• Fêtes et jours fériés (ex. : Noël, Pâques)
+• Marques (ex. : Apple, PayPal)
+À noter : Mois et jours de la semaine : pas de majuscule en français (ex. : lundi, mars)
+Ces règles s’appliquent quel que soit l’origine du texte (produit, backend, marketing).
+3. Capitalisation pour mise en valeur (exception, pas la règle)
+La capitalisation peut être utilisée de manière ponctuelle pour mettre en avant un
+élément important :
+• Noms d’offres ou de forfaits
+• Avantages clés
+• Messages liés à la sécurité ou à la protection
+• Mentions légales ou éléments contractuels
+Toute utilisation de capitalisation à des fins d’emphase doit être définie en amont,
+dans le cadre d’une fonctionnalité ou d’une campagne, afin d’éviter les
+incohérences entre équipes.
+4. Éviter l'usage excessif du Title Case et des MAJUSCULES
+Le Title Case (Majuscule À Chaque Mot) n’est pas naturel en français et doit être
+évité. Les MAJUSCULES intégrales doivent être limitées à des cas très spécifiques.
+Pourquoi éviter ces styles :
+• Ils augmentent la charge cognitive
+• Ils nuisent à la lisibilité
+• Ils donnent une impression datée ou trop « technique »
+• Ils créent des incohérences entre équipes et systèmes
+À retenir :
+• La casse de phrase est la norme
+• Le Title Case n’est utilisé que s'il est explicitement validé
+• Les MAJUSCULES sont réservées aux sigles, acronymes ou labels très courts et
+intentionnels
+5. Exemples : à faire / à éviter
+
+À faire
+Utiliser la casse de phrase pour la majorité des textes UI :
+• ✅ Ajouter au panier
+• ✅ Résumé de la commande
+• ✅ Adresse e‐mail
+Respecter les majuscules pour les noms propres et marques :
+• ✅ Payer avec Apple Pay
+• ✅ Paiement via PayPal
+• ✅ Vendu sur eBay
+• ✅ Économisez plus pendant la grande promo de mars
+Utiliser les majuscules pour l’emphase uniquement si prévu :
+• ✅ LIVRAISON GRATUITE (si défini comme avantage ou campagne)
+À éviter
+Ne pas utiliser le Title Case par défaut :
+• ❌ Ajouter Au Panier
+• ❌ Résumé De La Commande
+Ne pas utiliser les MAJUSCULES pour du texte UI général :
+• ❌ AJOUTER AU PANIER
+• ❌ PAIEMENT ÉCHOUÉ
+Ne pas mélanger les styles dans une même expérience :
+• ❌ Ajouter au Panier à côté de Résumé de la commande
+6. Résumé
+• La casse de phrase est la norme pour tous les textes visibles par l’utilisateur
+• Les règles standard du français s’appliquent toujours
+• La capitalisation pour emphase est exceptionnelle et doit être planifiée
+• Toutes les équipes doivent suivre ces règles pour garantir une expérience cohérente
+de bout en bout

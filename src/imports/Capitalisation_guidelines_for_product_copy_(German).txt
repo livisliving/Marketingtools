@@ -1,0 +1,105 @@
+Capitalisation guidelines for product copy
+(German)
+This document defines how capitalisation should be used across the end to end
+product experience. This includes all user facing text, regardless of where it is created or
+managed, such as product UI copy, backend configuration labels, category names,
+marketing titles set in OPC, and system generated messages.
+The goal is to create a consistent, readable, and natural German experience for users,
+while ensuring all teams follow the same rules when creating or maintaining copy.
+1. Default rule:
+All text must follow standard German spelling and grammar rules (Deutsche
+Rechtschreibung):
+• Sentence starts: The first letter of the first word in a sentence or label is capitalised.
+• Noun capitalisation: All nouns are capitalised (Note: This means only the first letter
+is uppercase, not the entire word. Example: "der Warenkorb", not "der
+WARENKORB").
+• Lowercase default: All other words remain lowercase, unless specific German
+grammar rules apply.
+This rule applies to:
+• Page titles
+• Navigation labels
+• Buttons and CTAs
+• Form labels and helper text
+• System messages and notifications
+• Backend driven labels exposed to users
+Using standard German capitalisation improves readability, reduces visual noise, and
+scales better across complex, content-heavy interfaces.
+2. Standard German capitalisation
+2.1. Important Clarification: Capitalisation vs. ALL CAPS
+In the context of German grammar, "capitalisation" (Großschreibung) refers exclusively
+to the first letter of a word being uppercase. It never refers to writing the entire word in
+
+capital letters (ALL CAPS).
+2.2. Usage Reference: Standard German Rules
+Ensure the following categories are correctly capitalised according to German grammar
+and brand standards:
+• Nouns
+• Nominalised verbs and adjectives (e.g., "das Lesen", "etwas Neues")
+• Fixed phrases (e.g., "in Bezug auf", "zu Ende bringen")
+• Polite forms of address (e.g., "Sie", "Ihr", "Ihre")
+• Sentence starts after a full stop, question mark, or exclamation mark
+• Abbreviations and acronyms: Note that many acronyms are written in ALL CAPS
+by standard (e.g., IBAN, BIC, GmbH, EU, FAQ). This is grammatically correct and
+expected.
+• Proper names and personal names
+• Titles and forms of address
+• Proper nouns
+• Names of countries, nationalities, and languages
+• Holidays
+• Days of the week and months
+• Brand names: Always follow the brand's specific spelling and case style, even if it
+breaks standard rules (e.g., eBay, PayPal, iPhone, YouTube).
+These rules apply regardless of where the text originates (product, backend, or
+marketing systems).
+3. Capitalisation for emphasis (exception, not default)
+Capitalisation may be used selectively to emphasise important concepts, such as:
+• Packages or plans
+• Key benefits
+• Security- or protection-related messaging
+Any use of capitalisation for emphasis must be intentional and agreed in advance. It
+should be defined as part of the feature or campaign requirements to avoid inconsistent
+or accidental usage across teams.
+4. Avoid overuse of Title Case and ALL CAPS
+
+Title Case (capitalising every word) and ALL CAPS should be avoided. If you absolutely
+must use them, use with caution.
+Historically, these patterns have been applied inconsistently across different teams and
+systems. Overuse increases cognitive load, reduces scannability, and can make interfaces
+feel noisy or less modern.
+Going forward:
+• Standard German capitalisation is the standard
+• Title Case should only be used when explicitly defined and approved
+• ALL CAPS should be limited to short, intentional use cases such as legal
+acronyms or highly constrained labels
+5. Applied Examples: Dos and Don'ts
+
+Do / Example Rule / Reason
+Don't
+✅ In den Warenkorb Standard capitalisation (Noun: Warenkorb)
+✅ Bestellübersicht Standard capitalisation (Noun:
+Bestellübersicht)
+✅ E-Mail-Adresse Standard capitalisation (Noun: E-Mail-
+Adresse)
+✅ Mit Apple Pay bezahlen Proper nouns & Brand names
+✅ Mit PayPal zur Kasse Proper nouns & Brand names
+✅ Verkauft auf eBay Proper nouns & Brand names
+✅ Im März mehr sparen Standard grammar (Month: März)
+beim großen Sale
+✅ KOSTENLOSE Lieferung Emphasis - Planned use only (when defined
+as a campaign or benefit)
+❌ In Den Warenkorb Avoid Title Case (capitalising every word)
+❌ Jetzt Kaufen Avoid Title Case (verbs like "kaufen" should
+be lowercase)
+❌ IN DEN WARENKORB Avoid ALL CAPS for general UI copy
+❌ ZAHLUNG Avoid ALL CAPS; increases cognitive load
+FEHLGESCHLAGEN
+❌ "In Den Warenkorb" next Avoid mixing styles within the same
+to "Jetzt kaufen" experience
+6. Summary
+• Standard German capitalisation is the default across all user-facing text
+• Standard German grammar rules always apply
+• Capitalisation for emphasis is the exception and must be planned
+• All teams contributing copy must follow the same guidelines to ensure a
+consistent end-to-end experience
+
+[Page 5: No extractable text]

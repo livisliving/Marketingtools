@@ -1,0 +1,86 @@
+Capitalisation guidelines for product copy
+(English)
+This document defines how capitalisation should be used across the end to end
+product experience. This includes all user facing text, regardless of where it is
+created or managed, such as product UI copy, backend configuration labels,
+category names, marketing titles set in OPC, and system generated messages.
+The goal is to create a consistent, readable, and natural English experience for
+users, while ensuring all teams follow the same rules when creating or
+maintaining copy.
+1. Default rule: sentence case
+Sentence case is the default across the product.
+Only the first letter of the first word should be capitalised. All other words should
+remain lowercase, unless standard English rules apply.
+This rule applies to:
+• Page titles
+• Navigation labels
+• Buttons and CTAs
+• Form labels and helper text
+• System messages and notifications
+• Backend driven labels exposed to users
+Using sentence case improves readability, reduces visual noise, and scales better
+across complex, content heavy interfaces.
+
+2. Standard English capitalisation
+Always follow standard English rules. Capitalise words when required by
+grammar or meaning, including:
+• Abbreviations and acronyms
+• Proper names and personal names
+• Titles and forms of address
+• Proper nouns
+• Names of countries, nationalities, and languages
+• Holidays
+• Days of the week and months
+• Brand names
+These rules apply regardless of where the text originates (product, backend, or
+marketing systems).
+3. Capitalisation for emphasis (exception, not default)
+Capitalisation may be used selectively to emphasise important concepts, such as:
+• Packages or plans
+• Key benefits
+• Security or protection related messaging
+Any use of capitalisation for emphasis must be intentional and agreed in
+advance. It should be defined as part of the feature or campaign requirements to
+avoid inconsistent or accidental usage across teams.
+
+4. Avoid overuse of Title Case and ALL CAPS
+Title Case (capitalising every word) and ALL CAPS should be avoided. If you
+absolutely must use them, use with caution.
+Historically, these patterns have been applied inconsistently across different
+teams and systems. Overuse increases cognitive load, reduces scannability, and
+can make interfaces feel noisy or less modern.
+Going forward:
+• Sentence case is the standard
+• Title Case should only be used when explicitly defined and approved
+• ALL CAPS should be limited to short, intentional use cases such as legal
+acronyms or highly constrained labels
+5. Do and Don’t examples
+Do
+▪ Use sentence case for most UI text
+• ✅ Add to cart
+• ✅ Order summary
+• ✅ Email address
+▪ Follow standard English capitalisation for brand names and proper
+nouns
+• ✅ Pay with Apple Pay
+• ✅ Checkout with PayPal
+• ✅ Sold on eBay
+• ✅ Save more in March big sale
+▪ Use capitalisation for emphasis only when planned
+
+• ✅ FREE delivery (when defined as a campaign or benefit)
+Don’t
+▪ Don’t use Title Case by default
+• ❌ Add To Cart
+• ❌ Order Summary
+▪ Don’t use ALL CAPS for general UI copy
+• ❌ ADD TO CART
+• ❌ PAYMENT FAILED
+▪ Don’t mix styles within the same experience
+• ❌ Add to Cart next to Order summary
+6. Summary
+• Sentence case is the default across all user facing text
+• Standard English rules always apply
+• Capitalisation for emphasis is the exception and must be planned
+• All teams contributing copy must follow the same guidelines to ensure a
+consistent end to end experience
