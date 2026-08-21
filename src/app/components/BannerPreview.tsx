@@ -31,7 +31,7 @@ function measureTextWidth(text: string, fontSizePx: number, letterSpacingEm: num
 }
 
 const TITLE_MIN_FONT = 40;
-const TITLE_LETTER_SPACING = -0.02; // em
+const TITLE_LETTER_SPACING = 0; // em (Barlow uses default tracking)
 
 export function BannerPreview({ format, config, transform, imageSize, onTransformChange, onExport, onApplySuggestion, onSelectPaletteColor, filledLangs, enabledExportLangs, onToggleExportLang, activeLang }: any) {
   const { id, name, width, height, gradientHeight, topBlocked, leftBlocked, rightBlocked, titleChars, subtitleChars, maxTitleFont, centerContent, device, textInset, customBlocked, customSafeArea, subtitleFont, bottomInset, gradientStart, textAlign } = format;
@@ -234,20 +234,20 @@ export function BannerPreview({ format, config, transform, imageSize, onTransfor
         const topPct = Math.round(palette[0].weight * 100);
         pills.push({
           id: `color-${id}`,
-          label: 'Color',
+          label: 'Colour',
           severity: 'warning',
-          headline: 'Low color dominance',
-          details: `Selected color (${palette[selectedPaletteIndex].hex}) represents only ${pct}% of the image. The gradient may not blend naturally with the background.`,
+          headline: 'Low colour dominance',
+          details: `Selected colour (${palette[selectedPaletteIndex].hex}) represents only ${pct}% of the image. The gradient may not blend naturally with the background.`,
           fixLabel: 'Fix',
           onFix: () => onSelectPaletteColor?.(0),
         });
       } else {
         pills.push({
           id: `color-${id}`,
-          label: 'Color',
+          label: 'Colour',
           severity: 'success',
-          headline: 'Color dominance is good',
-          details: `Selected color (${palette[selectedPaletteIndex].hex}) represents ${pct}% of the image.`,
+          headline: 'Colour dominance is good',
+          details: `Selected colour (${palette[selectedPaletteIndex].hex}) represents ${pct}% of the image.`,
         });
       }
     }
@@ -403,7 +403,7 @@ export function BannerPreview({ format, config, transform, imageSize, onTransfor
           ? (isLeftGradientWarning
             ? 'The image left edge is about to exit the gradient area. The gradient effect may not blend naturally.'
             : 'The image bottom edge is about to exit the gradient area. The gradient effect may not blend naturally.')
-          : `The background color is visible on the ${relevantGaps.join(', ')} edge${relevantGaps.length > 1 ? 's' : ''}. Adjust position or zoom to cover the full frame.`;
+          : `The background colour is visible on the ${relevantGaps.join(', ')} edge${relevantGaps.length > 1 ? 's' : ''}. Adjust position or zoom to cover the full frame.`;
 
         pills.push({
           id: `coverage-${id}`,
@@ -927,7 +927,7 @@ export function BannerPreview({ format, config, transform, imageSize, onTransfor
               </div>
               <div className="flex items-center" style={{ gap: '10px' }}>
                 <div style={{ width: '20px', height: '20px', backgroundColor: 'rgba(52,199,89,0.3)', borderWidth: '3px', borderStyle: 'dashed', borderColor: 'rgba(52,199,89,0.8)', borderRadius: '4px' }} />
-                <span className="text-white/90 font-medium whitespace-nowrap" style={{ fontSize: '32px' }}>Safe Area</span>
+                <span className="text-white/90 font-medium whitespace-nowrap" style={{ fontSize: '32px' }}>Safe area</span>
               </div>
             </div>
           </div>
@@ -954,7 +954,7 @@ export function BannerPreview({ format, config, transform, imageSize, onTransfor
                 : 'text-[#86868b] hover:text-[#1d1d1f] hover:bg-[#f5f5f7]'
             }`}
             onClick={posX !== 50 || posY !== 50 ? () => onTransformChange({ posX: 50, posY: 50 }) : undefined}
-            title="Center image"
+            title="Centre image"
             disabled={posX === 50 && posY === 50}
           >
             <Move size={14} />

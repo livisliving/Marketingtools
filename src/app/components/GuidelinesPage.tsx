@@ -304,7 +304,7 @@ export function GuidelinesPage() {
               <div className="flex items-start gap-2">
                 <Smartphone size={13} className="text-[#6e6e73] mt-0.5 shrink-0" />
                 <p className="text-[12px] text-[#6e6e73] leading-relaxed">
-                  <span className="font-semibold text-[#1d1d1f]">Mobile</span> — Bottom-aligned gradient with centered text. No CTA button. Subtitle constrained to a single line. Supports optional separate image with independent color extraction.
+                  <span className="font-semibold text-[#1d1d1f]">Mobile</span> — Bottom-aligned gradient with centred text. No CTA button. Subtitle constrained to a single line. Supports optional separate image with independent colour extraction.
                 </p>
               </div>
             </div>
@@ -319,7 +319,7 @@ export function GuidelinesPage() {
           <RuleRow
             icon={<Image size={15} />}
             title="Mobile image override"
-            description="You can upload a separate image for mobile formats. When set, mobile banners use this image with its own independent per-format transforms (position, zoom, flip) and its own TintSync color palette — desktop banners remain unaffected."
+            description="You can upload a separate image for mobile formats. When set, mobile banners use this image with its own independent per-format transforms (position, zoom, flip) and its own TintSync colour palette — desktop banners remain unaffected."
             severity="info"
           />
 
@@ -386,7 +386,7 @@ export function GuidelinesPage() {
           <RuleRow
             icon={<Move size={15} />}
             title="Edge coverage"
-            description="The image must cover all required edges of the frame. Gaps where the background color bleeds through trigger a yellow Coverage warning pill. Use the Fix button to auto-adjust."
+            description="The image must cover all required edges of the frame. Gaps where the background colour bleeds through trigger a yellow Coverage warning pill. Use the Fix button to auto-adjust."
             severity="warning"
           />
           <div className="mt-1 pl-8">
@@ -416,7 +416,7 @@ export function GuidelinesPage() {
           <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] p-4 mt-1">
             <p className="text-[13px] font-semibold text-[#1d1d1f] mb-2.5">Guide overlay zones</p>
             <p className="text-[12px] text-[#6e6e73] leading-relaxed mb-3">
-              Toggle Guides in the header to see three color-coded zones on each banner preview. These zones relate to image composition, not text placement:
+              Toggle Guides in the header to see three colour-coded zones on each banner preview. These zones relate to image composition, not text placement:
             </p>
             <div className="grid grid-cols-3 gap-2.5">
               <div className="rounded-xl border border-[#ff3b30]/15 bg-[#ff3b30]/5 p-3 text-center">
@@ -432,7 +432,7 @@ export function GuidelinesPage() {
               <div className="rounded-xl border border-[#0071e3]/15 bg-[#0071e3]/5 p-3 text-center">
                 <div className="w-8 h-8 rounded-lg bg-[#0071e3]/20 border border-[#0071e3]/20 mx-auto mb-2" />
                 <p className="text-[12px] font-semibold text-[#0071e3]">Gradient</p>
-                <p className="text-[11px] text-[#6e6e73] mt-0.5">Gradient overlay zone — the image blends into the theme color here.</p>
+                <p className="text-[11px] text-[#6e6e73] mt-0.5">Gradient overlay zone — the image blends into the theme colour here.</p>
               </div>
             </div>
           </div>
@@ -475,7 +475,7 @@ export function GuidelinesPage() {
         {/* ═══════════════════════════════════════════════
             3. GRADIENT & COLOR
             ═══════════════════════════════════════════════ */}
-        <SectionCard id="gradient" icon={<Blend size={16} strokeWidth={2} />} title="Gradient & color">
+        <SectionCard id="gradient" icon={<Blend size={16} strokeWidth={2} />} title="Gradient & colour">
           <RuleRow
             icon={<Blend size={15} />}
             title="Gradient proximity threshold"
@@ -498,7 +498,7 @@ export function GuidelinesPage() {
                   <Badge color="blue">Info</Badge>
                   <ChevronDown size={12} className="text-[#0071e3] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-                <p className="text-[12px] text-[#6e6e73] mt-0.5 leading-relaxed">The TintSync engine extracts the dominant color from the uploaded image using CIELAB color science, then applies a normalized HSL variant as the gradient overlay and background fill. See the TintSync section below for details.</p>
+                <p className="text-[12px] text-[#6e6e73] mt-0.5 leading-relaxed">The TintSync engine extracts the dominant colour from the uploaded image using CIELAB colour science, then applies a normalised HSL variant as the gradient overlay and background fill. See the TintSync section below for details.</p>
               </div>
             </div>
           </a>
@@ -520,7 +520,7 @@ export function GuidelinesPage() {
 
           {/* Errors sub-group — driven by registry */}
           <div className="rounded-xl border border-[#ff3b30]/10 bg-[#ff3b30]/[0.02] p-4 space-y-2">
-            <p className="text-[12px] font-semibold text-[#ff3b30] uppercase tracking-wider mb-0.5">Export blockers</p>
+            <p className="text-[12px] font-semibold text-[#ff3b30] tracking-wider mb-0.5">Export blockers</p>
             {getTextErrors().map((rule) => (
               <RuleRow
                 key={rule.id}
@@ -534,7 +534,7 @@ export function GuidelinesPage() {
 
           {/* Warnings sub-group — driven by registry */}
           <div className="rounded-xl border border-[#ff9f0a]/10 bg-[#ff9f0a]/[0.02] p-4 space-y-2">
-            <p className="text-[12px] font-semibold text-[#ff9f0a] uppercase tracking-wider mb-0.5">Warnings</p>
+            <p className="text-[12px] font-semibold text-[#ff9f0a] tracking-wider mb-0.5">Warnings</p>
             {getTextWarnings().map((rule) => (
               <RuleRow
                 key={rule.id}
@@ -652,7 +652,7 @@ export function GuidelinesPage() {
           <RuleRow
             icon={<ShieldAlert size={15} />}
             title="Export gating"
-            description="The Export All button turns red when any selected format has blocking errors. Clicking it opens a modal listing all unresolved issues. Individual format export buttons are also gated."
+            description="The Export all button turns red when any selected format has blocking errors. Clicking it opens a modal listing all unresolved issues. Individual format export buttons are also gated."
             severity="error"
           />
           <RuleRow
@@ -693,21 +693,21 @@ export function GuidelinesPage() {
             {/* Header — centered, no icon */}
             <div className="mb-2">
               <h2 className="font-bold text-white tracking-tight p-[0px] text-[48px]" style={{ background: 'linear-gradient(135deg, #fff 0%, #fff 40%, #5ac8fa 60%, #bf5af2 80%, #ff2d55 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>TintSync</h2>
-              <p className="text-[15px] text-white/40 tracking-[0.2em] uppercase m-[0px]">Engine</p>
+              <p className="text-[15px] text-white/40 tracking-[0.2em] m-[0px]">Engine</p>
             </div>
 
             {/* Description */}
             <p className="text-[13px] text-white/70 leading-relaxed max-w-[520px] mx-auto mx-[47px] mt-[20px] mb-[40px]">
-              TintSync automatically picks the most visually prominent color from your product image and uses it to theme the entire banner — the gradient overlay, the background fill, and the text contrast are all derived from that one color. No manual color picking needed.
+              TintSync automatically picks the most visually prominent colour from your product image and uses it to theme the entire banner — the gradient overlay, the background fill, and the text contrast are all derived from that one colour. No manual colour picking needed.
             </p>
 
             {/* Pipeline steps */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10 text-left">
               {[
-                { step: 1, icon: <Scan size={15} strokeWidth={2} />, title: 'Border detection', description: "Ignores plain-colored edges and white borders around your image so they don't skew the color result. Only the actual product area is sampled.", color: '#00c7be' },
-                { step: 2, icon: <Pipette size={15} strokeWidth={2} />, title: 'Color sampling', description: 'Scans every pixel and prioritizes rich, saturated colors over dull grays, blacks, and whites. The more vibrant and prominent a color is, the more weight it carries.', color: '#5856d6' },
-                { step: 3, icon: <Layers size={15} strokeWidth={2} />, title: 'Color grouping', description: "Groups similar colors together into clusters and picks the largest, most dominant group. If one color clearly stands out, it's selected instantly as a shortcut.", color: '#0071e3' },
-                { step: 4, icon: <Sun size={15} strokeWidth={2} />, title: 'Contrast adjustment', description: "Darkens the winning color just enough to guarantee white text stays readable on top of it — meeting a minimum 6:1 contrast ratio for accessibility.", color: '#af52de' },
+                { step: 1, icon: <Scan size={15} strokeWidth={2} />, title: 'Border detection', description: "Ignores plain-coloured edges and white borders around your image so they don't skew the colour result. Only the actual product area is sampled.", color: '#00c7be' },
+                { step: 2, icon: <Pipette size={15} strokeWidth={2} />, title: 'Colour sampling', description: 'Scans every pixel and prioritises rich, saturated colours over dull greys, blacks, and whites. The more vibrant and prominent a colour is, the more weight it carries.', color: '#5856d6' },
+                { step: 3, icon: <Layers size={15} strokeWidth={2} />, title: 'Colour grouping', description: "Groups similar colours together into clusters and picks the largest, most dominant group. If one colour clearly stands out, it's selected instantly as a shortcut.", color: '#0071e3' },
+                { step: 4, icon: <Sun size={15} strokeWidth={2} />, title: 'Contrast adjustment', description: "Darkens the winning colour just enough to guarantee white text stays readable on top of it — meeting a minimum 6:1 contrast ratio for accessibility.", color: '#af52de' },
               ].map((props, idx) => (
                 <PipelineStep key={props.step} {...props} delay={idx * 0.08} />
               ))}
@@ -717,10 +717,10 @@ export function GuidelinesPage() {
             <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 text-left">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <Contrast size={14} strokeWidth={2} className="text-white/50" />
-                <span className="text-[12px] font-semibold text-white/60 uppercase tracking-wider">Color space pipeline</span>
+                <span className="text-[12px] font-semibold text-white/60 tracking-wider">Colour space pipeline</span>
               </div>
               <div className="flex items-center justify-center gap-2 flex-wrap">
-                {['sRGB input', 'Linear RGB', 'XYZ D65', 'CIELAB L*a*b*', 'K-Means++', 'Dominant Lab', 'RGB', 'HSL', 'Normalized'].map((label, i, arr) => (
+                {['sRGB input', 'Linear RGB', 'XYZ D65', 'CIELAB L*a*b*', 'K-Means++', 'Dominant Lab', 'RGB', 'HSL', 'Normalised'].map((label, i, arr) => (
                   <motion.span
                     key={label}
                     className="contents"

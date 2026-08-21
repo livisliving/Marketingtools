@@ -91,7 +91,7 @@ export function Sidebar({
         <svg className="h-[22px] w-auto flex-shrink-0" fill="none" viewBox="0 0 109.775 30.0001">
           <path d={svgPaths.p29e27900} fill="#E1251B" />
         </svg>
-        <p className="text-[13px] text-[#86868b] font-medium">Marketing Tools</p>
+        <p className="text-[13px] text-[#86868b] font-medium">Marketing tools</p>
       </div>
       
       <div className="py-6 space-y-8 flex-1 overflow-y-auto custom-scrollbar">
@@ -103,7 +103,7 @@ export function Sidebar({
           >
             <div className="flex items-center gap-2 text-[#86868b]">
               <LayoutTemplate size={14} strokeWidth={2.5} />
-              <h3 className="text-[12px] font-bold uppercase tracking-wider">Formats</h3>
+              <h3 className="text-[12px] font-bold tracking-wider">Formats</h3>
               <motion.span
                 className="text-[11px] font-semibold text-[#0071e3] bg-[#0071e3]/10 px-1.5 py-0.5 rounded-md tabular-nums"
                 key={selectedFormats.length}
@@ -177,7 +177,7 @@ export function Sidebar({
               <div className="mt-3">
                 <div className="flex items-center gap-1.5 mb-2 ml-1">
                   <Clock size={11} className="text-[#ff9500]" strokeWidth={2.5} />
-                  <span className="text-[11px] font-semibold text-[#ff9500] uppercase tracking-wider">Deprecated — use until 15 Mar 2026</span>
+                  <span className="text-[11px] font-semibold text-[#ff9500] tracking-wider">Deprecated — use until 15 Mar 2026</span>
                 </div>
                 <div className="bg-[#ff9500]/[0.04] rounded-[14px] shadow-sm border border-[#ff9500]/15 overflow-hidden">
                   {deprecatedFormats.map((format: any, idx: number) => (
@@ -209,7 +209,7 @@ export function Sidebar({
                       <div className="flex flex-col flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="text-[15px] font-medium text-[#1d1d1f] leading-tight">{format.name}</span>
-                          <span className="text-[9px] font-bold text-[#ff9500] bg-[#ff9500]/10 px-1.5 py-[1px] rounded uppercase tracking-wide flex-shrink-0">Sunset</span>
+                          <span className="text-[9px] font-bold text-[#ff9500] bg-[#ff9500]/10 px-1.5 py-[1px] rounded tracking-wide flex-shrink-0">Sunset</span>
                         </div>
                         <div className="mt-0.5">
                           <BannerDetails device={format.device} placement={format.placement} width={format.width} height={format.height} />
@@ -227,7 +227,7 @@ export function Sidebar({
         <section className="px-5">
           <div className="flex items-center gap-2 text-[#86868b] mb-3 ml-1">
             <ImageIcon size={14} strokeWidth={2.5} />
-            <h3 className="text-[12px] font-bold uppercase tracking-wider">Background</h3>
+            <h3 className="text-[12px] font-bold tracking-wider">Background</h3>
           </div>
           
           <div className="bg-white rounded-[14px] shadow-sm border border-black/[0.04] p-4 space-y-5">
@@ -299,7 +299,7 @@ export function Sidebar({
                   {config.palette && config.palette.length > 0 && (
                     <div className="space-y-2.5">
                       <div className="flex justify-between text-[13px] font-medium">
-                        <span className="text-[#1d1d1f]">Dominant Colors</span>
+                        <span className="text-[#1d1d1f]">Dominant colours</span>
                         <div className="flex items-center gap-2">
                           <Link
                             to="/guidelines#tintsync"
@@ -363,7 +363,7 @@ export function Sidebar({
                             <svg className="w-4 h-4 text-[#ff9f0a] flex-shrink-0 mt-[1px]" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a.75.75 0 0 1 .65.38l6.25 10.75A.75.75 0 0 1 14.25 13H1.75a.75.75 0 0 1-.65-1.13L7.35 1.38A.75.75 0 0 1 8 1ZM7.25 9.5V6h1.5v3.5h-1.5Zm.75 2.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"/></svg>
                             <div className="flex-1 min-w-0">
                               <p className="text-[11px] font-semibold text-[#cc7700]">Low dominance ({Math.round(config.palette[config.selectedPaletteIndex].weight * 100)}%)</p>
-                              <p className="text-[10px] text-[#cc7700]/80 mt-0.5">Selected color represents less than 10% of the image. The gradient may not blend naturally.</p>
+                              <p className="text-[10px] text-[#cc7700]/80 mt-0.5">Selected colour represents less than 10% of the image. The gradient may not blend naturally.</p>
                             </div>
                             <button
                               onClick={() => onSelectPaletteColor(0)}
@@ -431,7 +431,7 @@ export function Sidebar({
                         {mobilePalette && mobilePalette.length > 0 && (
                           <div className="mt-3 space-y-2.5">
                             <div className="flex justify-between text-[13px] font-medium">
-                              <span className="text-[#1d1d1f]">Mobile Colors</span>
+                              <span className="text-[#1d1d1f]">Mobile colours</span>
                               <span className="text-[#86868b]">{mobilePalette.length} clusters</span>
                             </div>
                             <div className="grid grid-cols-6 gap-1.5">
@@ -486,7 +486,7 @@ export function Sidebar({
                                   <svg className="w-4 h-4 text-[#ff9f0a] flex-shrink-0 mt-[1px]" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a.75.75 0 0 1 .65.38l6.25 10.75A.75.75 0 0 1 14.25 13H1.75a.75.75 0 0 1-.65-1.13L7.35 1.38A.75.75 0 0 1 8 1ZM7.25 9.5V6h1.5v3.5h-1.5Zm.75 2.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"/></svg>
                                   <div className="flex-1 min-w-0">
                                     <p className="text-[11px] font-semibold text-[#cc7700]">Low dominance ({Math.round(mobilePalette[mobileSelectedPaletteIndex].weight * 100)}%)</p>
-                                    <p className="text-[10px] text-[#cc7700]/80 mt-0.5">Selected color represents less than 10% of the image. The gradient may not blend naturally.</p>
+                                    <p className="text-[10px] text-[#cc7700]/80 mt-0.5">Selected colour represents less than 10% of the image. The gradient may not blend naturally.</p>
                                   </div>
                                   <button
                                     onClick={() => onSelectMobilePaletteColor(0)}
@@ -499,7 +499,7 @@ export function Sidebar({
                             </AnimatePresence>
                           </div>
                         )}
-                        <p className="text-[10px] text-[#86868b] mt-2">Mobile banners use this image and its own gradient colors.</p>
+                        <p className="text-[10px] text-[#86868b] mt-2">Mobile banners use this image and its own gradient colours.</p>
                       </motion.div>
                     ) : (
                       <motion.button
@@ -532,7 +532,7 @@ export function Sidebar({
         <section className="px-5">
           <div className="flex items-center gap-2 text-[#86868b] mb-3 ml-1">
             <Type size={14} strokeWidth={2.5} />
-            <h3 className="text-[12px] font-bold uppercase tracking-wider">Content</h3>
+            <h3 className="text-[12px] font-bold tracking-wider">Content</h3>
           </div>
           
           {/* Language Tab Bar */}
@@ -655,7 +655,7 @@ export function Sidebar({
                   if (e.target.value.length <= maxTitleChars) setTitle(e.target.value);
                 }} 
                 className="w-full bg-[#f5f5f7] border border-transparent rounded-[10px] px-3.5 py-2.5 text-[15px] text-[#1d1d1f] focus:outline-none focus:bg-white focus:border-[#0071e3] focus:ring-4 focus:ring-[#0071e3]/10 transition-all placeholder:text-[#86868b]"
-                placeholder="Super Deals Today"
+                placeholder="Super deals today"
               />
               <AnimatePresence>
                 {hasBlockCaps(config.title) && (
@@ -724,7 +724,7 @@ export function Sidebar({
             
             <div className="space-y-1.5 pt-1">
               <div className="flex justify-between text-[13px] font-medium mb-1">
-                <label className="text-[#1d1d1f]">Button Text</label>
+                <label className="text-[#1d1d1f]">Button text</label>
                 <span className={`text-[#86868b] ${config.buttonText.length > 20 ? 'text-red-500' : ''}`}>
                   {config.buttonText.length}/20
                 </span>

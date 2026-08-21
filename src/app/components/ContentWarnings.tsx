@@ -119,7 +119,7 @@ export function ContentWarningTooltip({ warnings, onApplySuggestion }: ContentWa
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5 mb-0.5">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#86868b]">{fieldLabel}</span>
+                      <span className="text-[10px] font-bold tracking-wider text-[#86868b]">{fieldLabel}</span>
                     </div>
                     <p className={`text-[12px] font-medium leading-snug ${
                       w.severity === 'error' ? 'text-[#cc2d26]' : 'text-[#996600]'

@@ -45,7 +45,7 @@ export function ExportBlockedCard({ formatName, errors, onClose }: ExportBlocked
           </motion.div>
           <div className="flex-1 min-w-0">
             <h3 className="text-[17px] font-semibold text-[#1d1d1f] tracking-tight">
-              Export Blocked
+              Export blocked
             </h3>
             <p className="text-[13px] text-[#86868b] mt-0.5">
               {formatName
@@ -78,7 +78,7 @@ export function ExportBlockedCard({ formatName, errors, onClose }: ExportBlocked
               <XCircle size={15} className="text-[#ff3b30] flex-shrink-0 mt-0.5" strokeWidth={2.5} />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#86868b]">
+                  <span className="text-[10px] font-bold tracking-wider text-[#86868b]">
                     {err.label}
                   </span>
                 </div>
