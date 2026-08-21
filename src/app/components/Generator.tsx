@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { Link } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import * as htmlToImage from 'html-to-image';
 import JSZip from 'jszip';
 import { Download, LayoutTemplate, ShieldAlert, Smartphone, Monitor, Eye, EyeOff, BookOpen } from 'lucide-react';
 import { Sidebar } from './Sidebar';
@@ -10,6 +9,7 @@ import { ExportBlockedCard } from './ExportBlockedCard';
 import { ExportProgressBanner } from './ExportProgressBanner';
 import type { ExportProgress } from './ExportProgressBanner';
 import { rgbToHsl, rgbToHex, extractColorPalette } from '../utils/tint-sync';
+import { renderBanner, MAX_EXPORT_BYTES } from '../utils/export-image';
 import { validateTitle, validateSubtitle, validateButtonText } from '../utils/content-rules';
 import type { StatusPillData } from './StatusPill';
 import type { PaletteEntry } from '../utils/tint-sync';
@@ -366,22 +366,17 @@ export function Generator() {
       
       await new Promise(res => setTimeout(res, 50));
       
-      const dataUrl = await htmlToImage.toPng(node, {
-        quality: 1,
-        pixelRatio: 1,
-        width: format.width,
-        height: format.height,
-        style: {
-          transform: 'scale(1)',
-          transformOrigin: 'top left',
-        }
-      });
-      
+      const rendered = await renderBanner(node, format.width, format.height);
+      if (rendered.overLimit) {
+        console.warn(`Export ${formatId}: could not fit under ${Math.round(MAX_EXPORT_BYTES / 1024)}KB (got ${Math.round(rendered.bytes / 1024)}KB at min quality)`);
+      }
+
       const link = document.createElement('a');
       const date = new Date().toISOString().split('T')[0];
-      link.download = `campaign_${formatId}_${activeLang}_${date}.png`;
-      link.href = dataUrl;
+      link.download = `campaign_${formatId}_${activeLang}_${date}.${rendered.ext}`;
+      link.href = URL.createObjectURL(rendered.blob);
       link.click();
+      URL.revokeObjectURL(link.href);
       
       if (wasShowing) setShowSafeAreas(true);
 
@@ -425,17 +420,14 @@ export function Generator() {
           currentLabel: `${format.name} · ${langInfo?.label || lang}`,
         });
 
-        const dataUrl = await htmlToImage.toPng(el, {
-          quality: 1,
-          pixelRatio: 1,
-          width: format.width,
-          height: format.height,
-          style: { transform: 'scale(1)', transformOrigin: 'top left' },
-        });
+        const banner = await renderBanner(el, format.width, format.height);
+        if (banner.overLimit) {
+          console.warn(`Export ${formatId}/${lang}: could not fit under ${Math.round(MAX_EXPORT_BYTES / 1024)}KB (got ${Math.round(banner.bytes / 1024)}KB at min quality)`);
+        }
 
         const date = new Date().toISOString().split('T')[0];
-        const fileName = `campaign_${formatId}_${lang}_${date}.png`;
-        zip.file(fileName, dataUrl.split(',')[1], { base64: true });
+        const fileName = `campaign_${formatId}_${lang}_${date}.${banner.ext}`;
+        zip.file(fileName, banner.blob);
 
         rendered++;
         setExportProgress({

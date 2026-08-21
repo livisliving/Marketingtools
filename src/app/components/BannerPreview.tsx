@@ -34,7 +34,7 @@ const TITLE_MIN_FONT = 40;
 const TITLE_LETTER_SPACING = -0.02; // em
 
 export function BannerPreview({ format, config, transform, imageSize, onTransformChange, onExport, onApplySuggestion, onSelectPaletteColor, filledLangs, enabledExportLangs, onToggleExportLang, activeLang }: any) {
-  const { id, name, width, height, gradientHeight, topBlocked, leftBlocked, rightBlocked, titleChars, subtitleChars, maxTitleFont, centerContent, device, textInset, customBlocked, customSafeArea, subtitleFont, bottomInset, gradientStart } = format;
+  const { id, name, width, height, gradientHeight, topBlocked, leftBlocked, rightBlocked, titleChars, subtitleChars, maxTitleFont, centerContent, device, textInset, customBlocked, customSafeArea, subtitleFont, bottomInset, gradientStart, textAlign } = format;
   const { image, title, subtitle, buttonText, showSafeAreas, baseColor } = config;
   const palette = config.palette || [];
   const selectedPaletteIndex = config.selectedPaletteIndex ?? 0;
@@ -762,8 +762,8 @@ export function BannerPreview({ format, config, transform, imageSize, onTransfor
           />
 
           {/* Text Container */}
-          <div 
-            className={`absolute z-20 flex flex-col ${centerContent ? 'justify-center' : 'justify-end'}`}
+          <div
+            className={`absolute z-20 flex flex-col ${centerContent ? 'justify-center' : 'justify-end'} ${textAlign === 'center' ? 'items-center text-center' : ''}`}
             style={{
               top: 0,
               left: 0,
@@ -777,20 +777,21 @@ export function BannerPreview({ format, config, transform, imageSize, onTransfor
               ),
             }}
           >
-            <h1 
-              className="text-white font-semibold whitespace-nowrap drop-shadow-lg font-poppins"
+            <h1
+              className={`text-white whitespace-nowrap drop-shadow-lg ${textAlign === 'center' ? 'font-barlow font-bold' : 'font-semibold font-poppins'}`}
               style={{ fontSize: `${titleFontSize}px`, letterSpacing: '-0.02em', lineHeight: 1.15 }}
             >
               {title}
             </h1>
-            
+
             {subtitle && (
-              <p 
-                className={`text-white/95 mt-4 drop-shadow-md ${isDesktop ? 'font-medium' : 'font-normal leading-tight'}`}
-                style={{ 
+              <p
+                className={`mt-4 drop-shadow-md ${textAlign === 'center' ? 'font-barlow font-medium leading-tight' : (isDesktop ? 'text-white/95 font-medium' : 'text-white/95 font-normal leading-tight')}`}
+                style={{
+                  color: textAlign === 'center' ? '#e5e5e5' : undefined,
                   fontSize: subtitleFont ? `${subtitleFont}px` : (isDesktop ? '48px' : getFontSize(50)),
                   lineHeight: subtitleFont ? `${Math.round(subtitleFont * 1.25)}px` : (isDesktop ? '60px' : undefined),
-                  fontFamily: isDesktop ? "'Barlow', sans-serif" : undefined,
+                  fontFamily: (isDesktop || textAlign === 'center') ? "'Barlow', sans-serif" : undefined,
                   fontWeight: subtitleFont ? 500 : undefined,
                   maxWidth: isDesktop ? `${Math.round(width * 0.6)}px` : '85%',
                   wordBreak: 'break-word',

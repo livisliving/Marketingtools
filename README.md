@@ -6,20 +6,18 @@ An internal web tool for creating, previewing, and exporting pixel-perfect promo
 
 Campaign managers and designers use this tool to:
 
-1. **Upload a campaign image** and instantly generate banners in all required ad placements (Desktop Hero, Mobile Hero, Small Banner, Promotional Banner).
+1. **Upload a campaign image** and instantly generate banners in all required ad placements (Desktop Hero, Mobile Hero).
 2. **Configure text content** (title, subtitle, CTA button) in English once, then auto-translate into Chinese, Dutch, French, and German via the MyMemory Translation API.
-3. **Export production-ready PNGs** at exact pixel dimensions for each format and language combination, either individually or as a bulk `.zip` download.
+3. **Export production-ready JPEGs** at exact pixel dimensions for each format and language combination, either individually or as a bulk `.zip` download. Every image is compressed to stay within a 300 KB size cap while keeping the highest possible quality.
 
 The tool enforces Joybuy brand guidelines at every step, preventing non-compliant banners from being exported.
 
 ## Key Features
 
 ### Multi-Format Banner System
-Four banner formats with precise pixel dimensions, each with defined safe areas, blocked zones, and text positioning rules:
+Two banner formats with precise pixel dimensions, each with defined safe areas, blocked zones, and text positioning rules:
 - **Desktop Hero** (2688 x 720) - Homepage & mini homepage
-- **Mobile Hero** (1125 x 720) - App, mobile web, landing pages
-- **Small Banner** (2528 x 560) - Desktop promotions *(deprecated)*
-- **Promotional Banner** (1053 x 636) - App & mobile web promotions *(deprecated)*
+- **Mobile Hero** (1125 x 675) - App, mobile web, landing pages
 
 ### TintSync Color Engine
 A custom CIELAB-based dominant color extraction engine (`tint-sync.ts`) analyzes uploaded images and generates a palette of complementary colors. Selected palette colors drive the gradient overlays on each banner, ensuring the text layer always has adequate contrast against the background image.
@@ -49,9 +47,10 @@ Each banner format maintains independent background image controls:
 - **Mobile image override** - upload a separate image for mobile formats with its own transforms and independent TintSync palette
 
 ### Export Engine
-- **Single format**: downloads as an individual PNG
+- **Single format**: downloads as an individual JPEG
 - **Export All**: cycles through all enabled languages x selected formats, rendering each at 1:1 pixel dimensions via `html-to-image`, and bundles them into a `.zip` (via JSZip) named `campaign_banners_{langs}_{date}.zip`
-- File naming: `campaign_{format}_{lang}_{date}.png`
+- **Size cap**: each image is exported as JPEG and compressed to fit within a 300 KB limit. Rendering starts at quality 0.95 and, if the output exceeds the cap, binary-searches the JPEG quality down to the highest value that fits — best quality within the limit (`utils/export-image.ts`).
+- File naming: `campaign_{format}_{lang}_{date}.jpg`
 - Export progress shown via an animated progress banner
 
 ### Guide Overlay System
@@ -83,6 +82,7 @@ A dedicated `/guidelines` route with 7 workflow-ordered sections covering all ba
     content-rules.ts               # Validation rule implementations
     rule-registry.ts               # Single source of truth for rule metadata
     translate.ts                   # MyMemory Translation API integration
+    export-image.ts                # JPEG export with 300 KB size-cap quality tuning
 ```
 
 ## Tech Stack
@@ -91,7 +91,7 @@ A dedicated `/guidelines` route with 7 workflow-ordered sections covering all ba
 - **Tailwind CSS v4** for styling
 - **React Router v7** (data mode) for routing
 - **Motion** (formerly Framer Motion) for animations
-- **html-to-image** for pixel-perfect PNG rendering
+- **html-to-image** for pixel-perfect JPEG rendering
 - **JSZip** for bulk export bundling
 - **Lucide React** for icons
 - Apple design language: frosted glass, `#0071e3` accents, rounded surfaces
