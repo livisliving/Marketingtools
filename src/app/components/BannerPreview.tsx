@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Move, Download, ZoomIn, ZoomOut, FlipHorizontal2, RotateCcw, ShieldAlert, Check } from 'lucide-react';
+import { Move, Download, ZoomIn, ZoomOut, FlipHorizontal2, RotateCcw, ShieldAlert, Check, Type } from 'lucide-react';
 import { hslToRgb, normalizeForWhiteContrast } from '../utils/tint-sync';
 import { validateTitle, validateSubtitle, validateButtonText } from '../utils/content-rules';
 import { StatusPill } from './StatusPill';
@@ -35,7 +35,7 @@ const TITLE_LETTER_SPACING = -0.02; // em
 
 export function BannerPreview({ format, config, transform, imageSize, onTransformChange, onExport, onApplySuggestion, onSelectPaletteColor, filledLangs, enabledExportLangs, onToggleExportLang, activeLang }: any) {
   const { id, name, width, height, gradientHeight, topBlocked, leftBlocked, rightBlocked, titleChars, subtitleChars, maxTitleFont, centerContent, device, textInset, customBlocked, customSafeArea, subtitleFont, bottomInset, gradientStart, textAlign } = format;
-  const { image, title, subtitle, buttonText, showSafeAreas, baseColor } = config;
+  const { image, title, subtitle, buttonText, showSafeAreas, baseColor, exportMode } = config;
   const palette = config.palette || [];
   const selectedPaletteIndex = config.selectedPaletteIndex ?? 0;
   const { posX, posY, scale, flipX } = transform as Transform;
@@ -562,6 +562,13 @@ export function BannerPreview({ format, config, transform, imageSize, onTransfor
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 flex-wrap">
             <h3 className="text-[20px] font-semibold tracking-tight text-[#1d1d1f] flex-shrink-0">{name}</h3>
+            <span
+              className="inline-flex items-center gap-1 text-[11px] font-medium text-[#6e6e73] bg-black/[0.04] rounded-full px-2 py-0.5 flex-shrink-0"
+              title="Title, subtitle and CTA are live text added by the page builder on the customer side. The exported image contains the background and gradient only — this preview shows how it will look composited."
+            >
+              <Type size={11} strokeWidth={2.5} />
+              Live text · not in export
+            </span>
             <div className="flex items-center gap-1.5 flex-wrap">
               {statusPills.map(pill => (
                 <StatusPill key={pill.id} data={pill} />
@@ -761,7 +768,10 @@ export function BannerPreview({ format, config, transform, imageSize, onTransfor
             }}
           />
 
-          {/* Text Container */}
+          {/* Text Container — hidden during export (live text is overlaid by
+              the page builder on the customer side), shown in preview so users
+              see the true composited look. */}
+          {!exportMode && (
           <div
             className={`absolute z-20 flex flex-col ${centerContent ? 'justify-center' : 'justify-end'} ${textAlign === 'center' ? 'items-center text-center' : ''}`}
             style={{
@@ -827,6 +837,7 @@ export function BannerPreview({ format, config, transform, imageSize, onTransfor
               </div>
             )}
           </div>
+          )}
 
           {/* Safe Area Guides */}
           <div className="absolute inset-0 z-30 pointer-events-none transition-opacity duration-200" style={{ opacity: guidesVisible ? 1 : 0 }}>

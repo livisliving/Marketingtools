@@ -8,7 +8,7 @@ Campaign managers and designers use this tool to:
 
 1. **Upload a campaign image** and instantly generate banners in all required ad placements (Desktop Hero, Mobile Hero).
 2. **Configure text content** (title, subtitle, CTA button) in English once, then auto-translate into Chinese, Dutch, French, and German via the MyMemory Translation API.
-3. **Export production-ready JPEGs** at exact pixel dimensions for each format and language combination, either individually or as a bulk `.zip` download. Every image is compressed to stay within a 300 KB size cap while keeping the highest possible quality.
+3. **Export production-ready JPEGs** at exact pixel dimensions for each format and language combination, either individually or as a bulk `.zip` download. Title, subtitle, and CTA are overlaid as live text on the customer side, so exports contain the background and gradient only; every image is compressed to stay within a 300 KB size cap while keeping the highest possible quality.
 
 The tool enforces Joybuy brand guidelines at every step, preventing non-compliant banners from being exported.
 
@@ -47,6 +47,7 @@ Each banner format maintains independent background image controls:
 - **Mobile image override** - upload a separate image for mobile formats with its own transforms and independent TintSync palette
 
 ### Export Engine
+- **Live text**: title, subtitle, and CTA are overlaid as live text by the page builder on the customer side, so they are **excluded from the exported image** — each export contains the background image and gradient/scrim only. The preview still shows the fully composited banner (with text) so users can see how it will look to customers; a "Live text · not in export" badge on each banner makes this explicit.
 - **Single format**: downloads as an individual JPEG
 - **Export All**: cycles through all enabled languages x selected formats, rendering each at 1:1 pixel dimensions via `html-to-image`, and bundles them into a `.zip` (via JSZip) named `campaign_banners_{langs}_{date}.zip`
 - **Size cap**: each image is exported as JPEG and compressed to fit within a 300 KB limit. Rendering starts at quality 0.95 and, if the output exceeds the cap, binary-searches the JPEG quality down to the highest value that fits — best quality within the limit (`utils/export-image.ts`).

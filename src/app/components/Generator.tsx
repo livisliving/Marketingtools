@@ -127,6 +127,10 @@ export function Generator() {
   const [mobileImageSize, setMobileImageSize] = useState<{ w: number; h: number } | null>(null);
   
   const [showSafeAreas, setShowSafeAreas] = useState(false);
+  // Live-text mode: title/subtitle/CTA are overlaid by the page builder at
+  // render time, so they are hidden while capturing the exported image (the
+  // export is background + gradient only). Preview always keeps them visible.
+  const [exportMode, setExportMode] = useState(false);
   const [baseColor, setBaseColor] = useState({ h: 0, s: 0, l: 0 });
   const [extractedHex, setExtractedHex] = useState('#000000');
   const [normalizedHex, setNormalizedHex] = useState('#000000');
@@ -355,17 +359,20 @@ export function Generator() {
 
   const handleExportSingle = async (formatId: string, node: HTMLElement | null) => {
     if (!node) return;
+    const wasShowing = showSafeAreas;
     try {
       const format = FORMATS.find(f => f.id === formatId);
       if (!format) return;
-      
-      const wasShowing = showSafeAreas;
+
       if (wasShowing) setShowSafeAreas(false);
+      // Hide live text so the exported image is background + gradient only.
+      setExportMode(true);
 
       setExportProgress({ phase: 'rendering', current: 0, total: 1, currentLabel: `${format.name} · ${LANGUAGES.find(l => l.code === activeLang)?.label || activeLang}` });
-      
+
+      // Let React re-render with text hidden before we capture the node.
       await new Promise(res => setTimeout(res, 50));
-      
+
       const rendered = await renderBanner(node, format.width, format.height);
       if (rendered.overLimit) {
         console.warn(`Export ${formatId}: could not fit under ${Math.round(MAX_EXPORT_BYTES / 1024)}KB (got ${Math.round(rendered.bytes / 1024)}KB at min quality)`);
@@ -377,92 +384,103 @@ export function Generator() {
       link.href = URL.createObjectURL(rendered.blob);
       link.click();
       URL.revokeObjectURL(link.href);
-      
-      if (wasShowing) setShowSafeAreas(true);
 
       setExportProgress({ phase: 'done', current: 1, total: 1, currentLabel: '' });
       setTimeout(() => setExportProgress(null), 3000);
     } catch (err) {
       console.error('Export failed', err);
       setExportProgress(null);
+    } finally {
+      setExportMode(false);
+      if (wasShowing) setShowSafeAreas(true);
     }
   };
 
   // Export all selected formats × all enabled languages
   const handleExportAll = async () => {
     const wasShowing = showSafeAreas;
-    if (wasShowing) setShowSafeAreas(false);
     const originalLang = activeLang;
-    const langsToExport = filledLangs.filter(l => enabledExportLangs.has(l));
+    try {
+      if (wasShowing) setShowSafeAreas(false);
+      // Hide live text so exported images are background + gradient only.
+      setExportMode(true);
+      const langsToExport = filledLangs.filter(l => enabledExportLangs.has(l));
 
-    const totalImages = langsToExport.length * selectedFormats.length;
-    let rendered = 0;
+      const totalImages = langsToExport.length * selectedFormats.length;
+      let rendered = 0;
 
-    setExportProgress({ phase: 'rendering', current: 0, total: totalImages, currentLabel: 'Preparing...' });
+      setExportProgress({ phase: 'rendering', current: 0, total: totalImages, currentLabel: 'Preparing...' });
 
-    const zip = new JSZip();
+      const zip = new JSZip();
 
-    for (const lang of langsToExport) {
-      setActiveLang(lang);
-      await new Promise(r => setTimeout(r, 150));
-      const langInfo = LANGUAGES.find(l => l.code === lang);
+      for (const lang of langsToExport) {
+        setActiveLang(lang);
+        // 150ms lets React re-render with the new language AND text hidden
+        // before we capture the node.
+        await new Promise(r => setTimeout(r, 150));
+        const langInfo = LANGUAGES.find(l => l.code === lang);
 
-      for (const formatId of selectedFormats) {
-        const el = document.getElementById(`export-node-${formatId}`);
-        if (!el) { rendered++; continue; }
-        const format = FORMATS.find(f => f.id === formatId);
-        if (!format) { rendered++; continue; }
+        for (const formatId of selectedFormats) {
+          const el = document.getElementById(`export-node-${formatId}`);
+          if (!el) { rendered++; continue; }
+          const format = FORMATS.find(f => f.id === formatId);
+          if (!format) { rendered++; continue; }
 
-        setExportProgress({
-          phase: 'rendering',
-          current: rendered,
-          total: totalImages,
-          currentLabel: `${format.name} · ${langInfo?.label || lang}`,
-        });
+          setExportProgress({
+            phase: 'rendering',
+            current: rendered,
+            total: totalImages,
+            currentLabel: `${format.name} · ${langInfo?.label || lang}`,
+          });
 
-        const banner = await renderBanner(el, format.width, format.height);
-        if (banner.overLimit) {
-          console.warn(`Export ${formatId}/${lang}: could not fit under ${Math.round(MAX_EXPORT_BYTES / 1024)}KB (got ${Math.round(banner.bytes / 1024)}KB at min quality)`);
+          const banner = await renderBanner(el, format.width, format.height);
+          if (banner.overLimit) {
+            console.warn(`Export ${formatId}/${lang}: could not fit under ${Math.round(MAX_EXPORT_BYTES / 1024)}KB (got ${Math.round(banner.bytes / 1024)}KB at min quality)`);
+          }
+
+          const date = new Date().toISOString().split('T')[0];
+          const fileName = `campaign_${formatId}_${lang}_${date}.${banner.ext}`;
+          zip.file(fileName, banner.blob);
+
+          rendered++;
+          setExportProgress({
+            phase: 'rendering',
+            current: rendered,
+            total: totalImages,
+            currentLabel: `${format.name} · ${langInfo?.label || lang}`,
+          });
+
+          await new Promise(r => setTimeout(r, 200));
         }
-
-        const date = new Date().toISOString().split('T')[0];
-        const fileName = `campaign_${formatId}_${lang}_${date}.${banner.ext}`;
-        zip.file(fileName, banner.blob);
-
-        rendered++;
-        setExportProgress({
-          phase: 'rendering',
-          current: rendered,
-          total: totalImages,
-          currentLabel: `${format.name} · ${langInfo?.label || lang}`,
-        });
-
-        await new Promise(r => setTimeout(r, 200));
       }
+
+      setExportProgress({ phase: 'zipping', current: totalImages, total: totalImages, currentLabel: 'Creating ZIP archive...' });
+
+      const content = await zip.generateAsync({ type: 'blob' });
+      const link = document.createElement('a');
+      const date = new Date().toISOString().split('T')[0];
+      const langSuffix = langsToExport.join('_');
+      link.download = `campaign_banners_${langSuffix}_${date}.zip`;
+      link.href = URL.createObjectURL(content);
+      link.click();
+      URL.revokeObjectURL(link.href);
+
+      setExportProgress({ phase: 'done', current: totalImages, total: totalImages, currentLabel: '' });
+
+      // Auto-dismiss after 4 seconds
+      setTimeout(() => setExportProgress(null), 4000);
+    } catch (err) {
+      console.error('Export all failed', err);
+      setExportProgress(null);
+    } finally {
+      setActiveLang(originalLang);
+      setExportMode(false);
+      if (wasShowing) setShowSafeAreas(true);
     }
-
-    setActiveLang(originalLang);
-    if (wasShowing) setShowSafeAreas(true);
-
-    setExportProgress({ phase: 'zipping', current: totalImages, total: totalImages, currentLabel: 'Creating ZIP archive...' });
-
-    const content = await zip.generateAsync({ type: 'blob' });
-    const link = document.createElement('a');
-    const date = new Date().toISOString().split('T')[0];
-    const langSuffix = langsToExport.join('_');
-    link.download = `campaign_banners_${langSuffix}_${date}.zip`;
-    link.href = URL.createObjectURL(content);
-    link.click();
-    URL.revokeObjectURL(link.href);
-
-    setExportProgress({ phase: 'done', current: totalImages, total: totalImages, currentLabel: '' });
-
-    // Auto-dismiss after 4 seconds
-    setTimeout(() => setExportProgress(null), 4000);
   };
 
   const config = {
-    image, title, subtitle, buttonText, showSafeAreas, 
+    image, title, subtitle, buttonText, showSafeAreas, exportMode,
     baseColor, extractedHex, normalizedHex, palette, selectedPaletteIndex,
   };
 
