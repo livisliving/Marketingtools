@@ -23,7 +23,7 @@ let _measureCanvas: HTMLCanvasElement | null = null;
 function measureTextWidth(text: string, fontSizePx: number, letterSpacingEm: number): number {
   if (!_measureCanvas) _measureCanvas = document.createElement('canvas');
   const ctx = _measureCanvas.getContext('2d')!;
-  ctx.font = `600 ${fontSizePx}px Poppins, sans-serif`;
+  ctx.font = `700 ${fontSizePx}px Barlow, sans-serif`;
   const baseWidth = ctx.measureText(text).width;
   const spacingPx = fontSizePx * letterSpacingEm;
   const totalSpacing = Math.max(0, text.length - 1) * spacingPx;
@@ -788,7 +788,7 @@ export function BannerPreview({ format, config, transform, imageSize, onTransfor
             }}
           >
             <h1
-              className={`text-white whitespace-nowrap drop-shadow-lg ${textAlign === 'center' ? 'font-barlow font-bold' : 'font-semibold font-poppins'}`}
+              className="text-white whitespace-nowrap drop-shadow-lg font-barlow font-bold"
               style={{ fontSize: `${titleFontSize}px`, letterSpacing: '-0.02em', lineHeight: 1.15 }}
             >
               {title}
@@ -839,7 +839,9 @@ export function BannerPreview({ format, config, transform, imageSize, onTransfor
           </div>
           )}
 
-          {/* Safe Area Guides */}
+          {/* Safe Area Guides — editing aids only; never rendered during
+              export (must not be baked into the downloaded image). */}
+          {!exportMode && (
           <div className="absolute inset-0 z-30 pointer-events-none transition-opacity duration-200" style={{ opacity: guidesVisible ? 1 : 0 }}>
             {/* Blocked zones */}
             {customBlocked ? (
@@ -929,6 +931,7 @@ export function BannerPreview({ format, config, transform, imageSize, onTransfor
               </div>
             </div>
           </div>
+          )}
         </div>
 
         {/* Drag hint on hover */}

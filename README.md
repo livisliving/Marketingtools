@@ -99,7 +99,6 @@ A dedicated `/guidelines` route with 7 workflow-ordered sections covering all ba
 
 ## Fonts
 
-- **Barlow** (400, 500, 600, 700) - Banner body text, subtitles, buttons
-- **Poppins** (600) - Banner titles
+- **Barlow** (400, 500, 600, 700) - all banner text: titles (Bold 700), subtitles, body, and buttons
 
-Both loaded from Google Fonts.
+Loaded from Google Fonts.
