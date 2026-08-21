@@ -53,6 +53,14 @@ export function startUpdatePolling(
   onUpdate: (remoteVersion: string) => void,
   intervalMs = 5 * 60 * 1000,
 ): () => void {
+  // Disabled in single-file/offline builds (no host to poll; a file:// fetch
+  // can hard-fail in strict viewers). Also skip when not served over http(s).
+  const updateCheckEnabled =
+    typeof __UPDATE_CHECK__ === 'undefined' ? true : __UPDATE_CHECK__;
+  if (!updateCheckEnabled || !/^https?:$/.test(window.location.protocol)) {
+    return () => {};
+  }
+
   let stopped = false;
   let timer: ReturnType<typeof setTimeout> | undefined;
 

@@ -19,6 +19,9 @@ export default defineConfig(({ mode }) => {
     // Expose the package version to the app for the update check.
     define: {
       __APP_VERSION__: JSON.stringify(pkg.version),
+      // Single-file/offline builds must not poll for updates: there is no host
+      // to reach, and a file:// fetch can hard-fail in strict viewers.
+      __UPDATE_CHECK__: JSON.stringify(!singlefile),
     },
     plugins: [
       // The React and Tailwind plugins are both required for Make, even if
