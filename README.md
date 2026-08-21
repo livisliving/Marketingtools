@@ -65,7 +65,7 @@ A dedicated `/guidelines` route with 7 workflow-ordered sections covering all ba
 ```
 /src/app
   App.tsx                         # Entry point, RouterProvider
-  routes.ts                       # React Router config (/ and /guidelines)
+  routes.ts                       # React Router hash-router config (#/ and #/guidelines)
   formats.ts                      # Banner format definitions
   /components
     Generator.tsx                  # Main generator with all state management
@@ -90,7 +90,7 @@ A dedicated `/guidelines` route with 7 workflow-ordered sections covering all ba
 
 - **React 18** with TypeScript
 - **Tailwind CSS v4** for styling
-- **React Router v7** (data mode) for routing
+- **React Router v7** (hash router) for routing
 - **Motion** (formerly Framer Motion) for animations
 - **html-to-image** for pixel-perfect JPEG rendering
 - **JSZip** for bulk export bundling
@@ -102,3 +102,23 @@ A dedicated `/guidelines` route with 7 workflow-ordered sections covering all ba
 - **Barlow** (400, 500, 600, 700) - all banner text: titles (Bold 700), subtitles, body, and buttons
 
 Loaded from Google Fonts.
+
+## Deployment & updates
+
+The app is deployed to **GitHub Pages** via GitHub Actions: any push to `main` triggers
+`.github/workflows/deploy.yml`, which builds and publishes `dist/`. Stakeholders use the Pages URL;
+their next refresh loads the latest version.
+
+**In-app update notification:** the running build stamps its version (from `package.json`) into the
+bundle. `src/app/utils/version-check.ts` polls `public/version.json`; if the deployed version is newer,
+a dismissible "A new version is available — Refresh" banner appears. Offline / non-hosted copies skip
+the check silently.
+
+**Releasing a new version:**
+1. Bump `version` in **both** `package.json` and `public/version.json`.
+2. Commit and push to `main` — the Action deploys automatically.
+
+**Offline / single-file build:** `npm run build:single` (via `vite-plugin-singlefile`) produces a
+self-contained `dist/index.html` that runs by double-click with no server (fonts load from the CDN when
+online; falls back to the system font offline). The app uses a hash router and a relative asset base
+(`base: './'`) specifically so it works from `file://` and under any Pages sub-path.
